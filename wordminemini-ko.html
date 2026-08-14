@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head> 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WordMine - Word Search Puzzle Game| Soosooland</title>
+<title>WordMine mini- Word Search Puzzle Game| Soosooland</title>
 <script>
   if (window.top !== window.self) {
     window.top.location = "https://soosooland.com";
   }
   console.log("© 2025-2026 Soosooland by 한수수. All rights reserved.");
   console.log("https://soosooland.com");
-  console.log("🎮 Wordmine | Born: 2025-08-13");
+  console.log("🎮 Wordmine mini | Born: 2025-08-14");
 </script> 
    <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-4YZHC1G9FN"></script>
@@ -126,8 +126,8 @@ body {
   #npcScore, #userScore {
     background: #209087;
     color: #fff;
-    width: 150px;
-    height: 320px;
+    width: 180px;
+    height: 350px;
     padding: 15px;
     box-sizing: border-box;
     border-radius: 12px;
@@ -147,8 +147,8 @@ body {
     padding: 8px;
     background-color: #0E756D;
     border-radius: 12px;
-    width: 320px;
-    height: 320px;
+    width: 350px;
+    height: 350px;
     box-sizing: border-box;
     flex-shrink: 0;
   }
@@ -164,19 +164,19 @@ body {
   }
   button:hover { background-color: #1baf8f; color: #fff; }
 footer { text-align: center; color: #c3dbdb; font-size: 0.8rem; margin-top: 30px; }
-  @media (max-width: 640px) {
+  @media (max-width: 800px) {
     h1 { font-size: 2.5em; margin: 15px 0 5px; }
     p { font-size: 0.9em; margin: 0 10px 15px; }
     #difficultyScreen h2 { font-size: 1.5em; }
     .difficulty-btn { font-size: 1.1em; padding: 15px 30px; }
     .container { flex-direction: column; align-items: center; width: 100%; gap: 0; }
-    #game { width:320px; height: 320px; aspect-ratio: 1 / 1; grid-gap: 3px; }
+    #game { width:350px; height: 350px; aspect-ratio: 1 / 1; grid-gap: 3px; }
     #npcScore, #userScore { display: none !important; }
     .score-container {
       display: flex !important;
       flex-direction: column;
       gap: 10px;
-      width:320px;
+      width:350px;
       margin-top: 15px;
     }
     .score-container > div {
@@ -189,7 +189,7 @@ footer { text-align: center; color: #c3dbdb; font-size: 0.8rem; margin-top: 30px
     }
     .score-container h2 { font-size: 1em; margin: 0 0 8px; }
     .score-container p { font-size: 0.95em; display: inline-block; margin: 3px 6px; color: #fff; text-align: left; }
-    .btn-container { margin: 15px 0; width: 95%; max-width: 320px; justify-content: center; }
+    .btn-container { margin: 15px 0; width: 95%; max-width: 350px; justify-content: center; }
     button { font-size: 1em; padding: 12px 25px; flex: 1; max-width: 150px; }
   }
 </style>
@@ -206,16 +206,16 @@ footer { text-align: center; color: #c3dbdb; font-size: 0.8rem; margin-top: 30px
 <div class="container">
   <div id="npcScore"><h2>NPC:</h2></div>
   <div id="game"></div>
-  <div id="userScore"><h2>USER:</h2></div>
+  <div id="userScore"><h2>사용자:</h2></div>
 </div>
 
 <div class="score-container">
   <div id="npcScore-mobile"><h2>NPC:</h2></div>
-  <div id="userScore-mobile"><h2>USER:</h2></div>
+  <div id="userScore-mobile"><h2>사용자:</h2></div>
 </div>
 
 <div class="btn-container">
-  <button id="retryBtn">↻Try Again</button>
+  <button id="retryBtn">다시 시작</button>
 </div>
 </div>
 <footer>
@@ -223,7 +223,7 @@ footer { text-align: center; color: #c3dbdb; font-size: 0.8rem; margin-top: 30px
 </footer>
 
 <script>
-const gridSize = 8;
+const gridSize = 7;
 const totalCells = gridSize * gridSize;
 let npcDifficulty = 'hard';
 
@@ -270,13 +270,13 @@ window.onload = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const poolFile = urlParams.get('pool');
   if (!poolFile) {
-    words = ['CAT', 'AGE', 'AREA', 'AWAY','ALSO','BABY','ABOUT', 'ADULT', 'AGAIN','AFTER','ACROSS','ACTION','ACTRESS','ACTIVITY','AFTERNOON'];
+    words = ['고양이', '강아지', '게임', '수수랜드','하루', '까마귀'];
     init();
     return;
   }
 
   // 워드마인 전용 워드풀 (게임 이름이 JSON 안에 포함되어 있음)
-  fetch('https://soosooland.com/wordmine/wordpools/' + poolFile + '.json')
+  fetch('https://soosooland.com/wordminemini/wordpools/' + poolFile + '.json')
     .then(res => res.json())
     .then(data => {
       document.getElementById('game-title').textContent = data.title || '워드마인';
@@ -651,13 +651,13 @@ function checkGameEnd() {
 
     let winner;
     if (userWords > npcWords) {
-      winner = 'User Wins!';
+      winner = '사용자가 이겼습니다!';
     } else if (npcWords > userWords) {
-      winner = 'NPC Wins!';
+      winner = 'NPC가 이겼습니다!';
     } else {
-      winner = "It's a Draw!";
+      winner = "무승부입니다!";
     }
-    currentTurnEl.textContent = `Game Over! ${winner} (You: ${userWords} / NPC: ${npcWords})`;
+    currentTurnEl.textContent = `게임 종료! ${winner} (사용자: ${userWords} / NPC: ${npcWords})`;
   }
 }
 
