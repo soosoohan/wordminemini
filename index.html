@@ -282,11 +282,11 @@ display: none;
                 <button class="language-button active" onclick="toggleLanguage('ko')">한</button>
                 <button class="language-button" onclick="toggleLanguage('en')">EN</button>
             </div><br>
-  <h1>WordMinemini  </h1>
+  <h1>WordMine mini  </h1>
   <div class="description">
    <div id="korean-description">
     이 게임은 지뢰찾기를 개조한 워드서치 게임입니다.<br>
-    영어는 가로12*세로12이고,  한글은 가로10*세로10가  있는 작은 격자 입니다.<br>
+    영어는 가로8*세로8이고,  한글은 가로7*세로7인 작은 격자 입니다.<br>
     단어는 가로, 세로, 대각선 방향으로 숨겨져 있으며, 마지막 글자를 열면 해당 단어를 획득합니다.<br>
     NPC보다 많은 단어를 찾으면 이깁니다.<br>
     격자에 적힌 숫자는 격자 주변에 있는 글자의 수입니다.<br>
@@ -295,7 +295,7 @@ display: none;
    </div>
    <div id="english-description" class="hidden">
     This is a word search with a minesweeper twist.<br>
-    The grid is medium-sized: 12×12 for English and 10×10 for Korean.<br>
+    The grid is medium-sized: 8×8 for English and 7×7 for Korean.<br>
     Words are hidden horizontally, vertically, or diagonally, and you earn the word by revealing its final letter.<br>
     Your goal is to find more words than the computer.<br>
     The numbers in the grid show how many letters are adjacent to that cell.<br>
@@ -368,7 +368,7 @@ function initLanguage() {
 }
 
 function startGame(poolName, isEnglish) {
-    const page = isEnglish ? 'wordmine-en.html' : 'wordmine-ko.html';
+    const page = isEnglish ? 'wordminemini-en.html' : 'wordminemini-ko.html';
     location.href = `${page}?pool=${poolName}`;
 }
 </script>
