@@ -361,9 +361,8 @@ function canPlaceWord(word, x, y, dx, dy) {
 }
 
 function getZone(x, y) {
-  // 10x10을 2x2 존(각 5x5)으로 분할
-  const zoneX = x < 5 ? 0 : 1;
-  const zoneY = y < 5 ? 0 : 1;
+  const zoneX = x < 4 ? 0 : 1;
+  const zoneY = y < 4 ? 0 : 1;
   return zoneY * 2 + zoneX; // 0,1,2,3
 }
 
@@ -376,7 +375,7 @@ function placeAllWordsWithVariety() {
     board = Array(totalCells).fill(null);
     usedIndexes.clear();
     wordMap = {};
-    zoneCounts = [0, 0, 0, 0]; // ★ 리셋
+    zoneCounts = [0, 0, 0, 0];
     let allPlaced = true;
     const sortedWords = [...words].sort((a, b) => b.length - a.length);
     for (let word of sortedWords) {
@@ -392,7 +391,7 @@ function placeWord(word) {
   const directions = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: 1, y: 1 }];
   const shuffledDirections = directions.sort(() => Math.random() - 0.5);
 
-  // 존을 채워진 개수 오름차순으로 정렬해서, 적게 채워진 곳부터 시도
+  // 가장 적게 채워진 존부터 시도
   const zoneOrder = [0, 1, 2, 3].sort((a, b) => zoneCounts[a] - zoneCounts[b]);
 
   for (let dir of shuffledDirections) {
@@ -403,7 +402,7 @@ function placeWord(word) {
         const y = (startY + i) % gridSize;
         for (let j = 0; j < gridSize; j++) {
           const x = (startX + j) % gridSize;
-          if (getZone(x, y) !== zone) continue; // 해당 존 안에서만 시작점 찾기
+          if (getZone(x, y) !== zone) continue;
           if (canPlaceWord(word, x, y, dir.x, dir.y)) {
             let positions = [];
             for (let i = 0; i < word.length; i++) {
@@ -413,7 +412,7 @@ function placeWord(word) {
               positions.push(idx);
             }
             wordMap[word] = { positions: positions, direction: [dir.x, dir.y] };
-            zoneCounts[getZone(x, y)]++; // ★ 카운트 증가
+            zoneCounts[getZone(x, y)]++;
             return true;
           }
         }
