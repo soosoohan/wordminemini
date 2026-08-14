@@ -1,0 +1,16 @@
+{
+"__comment": "e10",
+  "title": "WORDMINE ",
+"description": "US Landmarks\nLook at the number hints and click the grid to find the words.",
+
+  "words": {
+  "6": ["MET","MOMA", "ZION","ALAMO", "LACMA","ACADIA", "ARCHES", "DENALI", "MALIBU","OLYMPIC","ROCKIES", "SEQUOIA", "THE_MET"],
+  "7": ["GLACIER", "RAINIER", "WAIKIKI", "WHITNEY","BIG_BEND", "YOSEMITE", "ALCATRAZ", "COLORADO", "MISSOURI","JAMESTOWN", "LAKE_ERIE", "EVERGLADES", "HUDSON_BAY"],
+  "10": ["MESA_VERDE", "GETTYSBURG", "GUGGENHEIM", "LAKE_HURON", "LAKE_TAHOE", "OHIO_RIVER", "CRATER_LAKE","GRAND_TETON", "SMITHSONIAN", "YELLOWSTONE", "MIAMI_BEACH", "MISSISSIPPI", "WHITE_HOUSE"]
+ },
+ "wordCount": {
+    "6": 1,
+    "7": 1,
+   "10": 1
+   }
+}
