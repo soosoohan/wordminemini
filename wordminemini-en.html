@@ -276,7 +276,7 @@ window.onload = () => {
   }
 
   // 워드마인 전용 워드풀 (게임 이름이 JSON 안에 포함되어 있음)
-  fetch('https://soosooland.com/wordmine/wordpools/' + poolFile + '.json')
+  fetch('https://soosooland.com/wordminemini/wordpools/' + poolFile + '.json')
     .then(res => res.json())
     .then(data => {
       document.getElementById('game-title').textContent = data.title || '워드마인';
