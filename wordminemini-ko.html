@@ -498,11 +498,22 @@ function reveal(index) {
     cell.textContent = board[index];
   } else {
     const num = board[index];
-    cell.textContent = num === 0 ? '' : num;
-    cell.classList.add('num');
-    cell.classList.add('num-' + num);
 
     if (num === 0) {
+      // ★ 0인 칸 → 클로버 또는 데이지로 표시
+      const deco = zeroDecoration[index];
+      if (deco === 'clover') {
+        cell.innerHTML = '<span>🍀</span>';
+        cell.classList.add('clover');
+      } else {
+        const img = document.createElement('img');
+        img.src = 'https://soosooland.com/wordmine/daisy_64x64.png';
+        img.alt = '데이지';
+        img.style.width = '24px';
+        img.style.height = '24px';
+        cell.appendChild(img);
+        cell.classList.add('daisy');
+      }
       const x = index % gridSize, y = Math.floor(index / gridSize);
       for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
