@@ -348,15 +348,10 @@ function init() {
     }
   }
 
-  function fillEmptyCells() {
-  for (let j = 0; j < totalCells; j++) {
-    if (usedIndexes.has(j)) continue;
-    const num = countAdjacentLetters(j);
-    board[j] = num;
-    if (num === 0) {
-      zeroDecoration[j] = Math.random() < 0.5 ? 'clover' : 'daisy'; // ★ 50:50 랜덤
-    }
-  }
+  fillEmptyCells();
+  updateScore();
+  updateTurnDisplay();
+  checkGameEnd();
 }
 
 function createGrid() {
@@ -381,13 +376,13 @@ function canPlaceWord(word, x, y, dx, dy) {
 }
 
 function getZone(x, y) {
-  const half = gridSize / 2;
-  const zoneX = x < half ? 0 : 1;
-  const zoneY = y < half ? 0 : 1;
-  return zoneY * 2 + zoneX;
+  const zoneX = x < 4 ? 0 : 1;
+  const zoneY = y < 4 ? 0 : 1;
+  return zoneY * 2 + zoneX; // 0,1,2,3
 }
 
 let zoneCounts = [0, 0, 0, 0];
+
 
 function placeAllWordsWithVariety() {
   let attempts = 0;
@@ -474,7 +469,11 @@ function placeAllWordsWithVariety() {
 function fillEmptyCells() {
   for (let j = 0; j < totalCells; j++) {
     if (usedIndexes.has(j)) continue;
-    board[j] = countAdjacentLetters(j);
+    const num = countAdjacentLetters(j);
+    board[j] = num;
+    if (num === 0) {
+      zeroDecoration[j] = Math.random() < 0.5 ? 'clover' : 'daisy'; // ★ 50:50 랜덤
+    }
   }
 }
 
