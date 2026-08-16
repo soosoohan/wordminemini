@@ -234,6 +234,7 @@ function setDifficulty(level) {
 }
 
 let board, revealed, wordMap, foundWords, currentPlayer, foundBy, words, usedIndexes;
+let zeroDecoration = {}; 
 let resultShown = false;
 let npcTimeoutId = null;
 
@@ -318,6 +319,7 @@ function init() {
   foundBy = { user: [], npc: [] };
   currentPlayer = 'user';
   usedIndexes = new Set();
+  zeroDecoration = {}; // ★ 추가
   resultShown = false;
  
   if (npcTimeoutId) { clearTimeout(npcTimeoutId); npcTimeoutId = null; }
