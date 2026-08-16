@@ -123,17 +123,6 @@ body {
   /* 숫자 색상 통일 */
   .revealed.num { color: #0A6A79; }
   .revealed.num-0 { background-color: #caed9f; }
-  .revealed.clover {
-  background-color: #fff;
-  font-size: 1.6em;
- }
-.revealed.clover span {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
- }
-.revealed.daisy {
-  background-color: #fff4e0;
-  font-size: 1.6em;
- }
   #npcScore, #userScore {
     background: #209087;
     color: #fff;
@@ -466,11 +455,7 @@ function placeAllWordsWithVariety() {
 function fillEmptyCells() {
   for (let j = 0; j < totalCells; j++) {
     if (usedIndexes.has(j)) continue;
-    const num = countAdjacentLetters(j);
-    board[j] = num;
-    if (num === 0) {
-      zeroDecoration[j] = Math.random() < 0.5 ? 'clover' : 'daisy'; 
-    }
+    board[j] = countAdjacentLetters(j);
   }
 }
 
@@ -498,22 +483,11 @@ function reveal(index) {
     cell.textContent = board[index];
   } else {
     const num = board[index];
+    cell.textContent = num === 0 ? '' : num;
+    cell.classList.add('num');
+    cell.classList.add('num-' + num);
 
     if (num === 0) {
-      // ★ 0인 칸 → 클로버 또는 데이지로 표시
-      const deco = zeroDecoration[index];
-      if (deco === 'clover') {
-        cell.innerHTML = '<span>🍀</span>';
-        cell.classList.add('clover');
-      } else {
-        const img = document.createElement('img');
-        img.src = 'https://soosooland.com/wordmine/daisy_64x64.png';
-        img.alt = '데이지';
-        img.style.width = '24px';
-        img.style.height = '24px';
-        cell.appendChild(img);
-        cell.classList.add('daisy');
-      }
       const x = index % gridSize, y = Math.floor(index / gridSize);
       for (let dy = -1; dy <= 1; dy++) {
         for (let dx = -1; dx <= 1; dx++) {
