@@ -464,7 +464,11 @@ function placeAllWordsWithVariety() {
 function fillEmptyCells() {
   for (let j = 0; j < totalCells; j++) {
     if (usedIndexes.has(j)) continue;
-    board[j] = countAdjacentLetters(j);
+    const num = countAdjacentLetters(j);
+    board[j] = num;
+    if (num === 0) {
+      zeroDecoration[j] = Math.random() < 0.5 ? 'clover' : 'daisy'; 
+    }
   }
 }
 
