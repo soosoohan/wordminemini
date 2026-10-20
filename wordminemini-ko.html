@@ -640,23 +640,36 @@ function checkWords() {
 }
 
 function checkGameEnd() {
+  if (resultShown) return;
   const totalWords = Object.keys(wordMap).length;
-  if (foundWords.size >= totalWords && totalWords > 0) {
-    resultShown = true;
-    if (npcTimeoutId) { clearTimeout(npcTimeoutId); npcTimeoutId = null; }
-    const userWords = foundBy.user.length;
-    const npcWords = foundBy.npc.length;
+  if (!(foundWords.size >= totalWords && totalWords > 0)) return;
 
-    let winner;
-    if (userWords > npcWords) {
-      winner = '사용자가 이겼습니다!';
-    } else if (npcWords > userWords) {
-      winner = 'NPC가 이겼습니다!';
-    } else {
-      winner = "무승부입니다!";
-    }
-    currentTurnEl.textContent = `게임 종료! ${winner} (사용자: ${userWords} / NPC: ${npcWords})`;
+  resultShown = true;
+  if (npcTimeoutId) { clearTimeout(npcTimeoutId); npcTimeoutId = null; }
+
+  const userWords = foundBy.user.length;
+  const npcWords = foundBy.npc.length;
+
+  let result, winner;
+  if (userWords > npcWords) {
+    result = 'win';
+    winner = '당신이 이겼습니다!';
+  } else if (npcWords > userWords) {
+    result = 'lose';
+    winner = 'NPC가 이겼습니다!';
+  } else {
+    result = 'draw';
+    winner = '무승부입니다!';
   }
+
+  currentTurnEl.textContent = `게임 종료! ${winner} (나: ${userWords} / NPC: ${npcWords})`;
+
+  showEndOverlay({
+    lang: 'ko',
+    result,
+    scoreText: `나: ${userWords} / NPC: ${npcWords}`,
+    onRestart: () => location.reload()
+  });
 }
 
 retryBtn.onclick = () => { startGame(npcDifficulty); };
