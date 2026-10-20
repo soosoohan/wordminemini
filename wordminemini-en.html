@@ -639,25 +639,37 @@ function checkWords() {
 }
 
 function checkGameEnd() {
+  if (resultShown) return;   // 중복 호출 방지
   const totalWords = Object.keys(wordMap).length;
-  if (foundWords.size >= totalWords && totalWords > 0) {
-    resultShown = true;
-    if (npcTimeoutId) { clearTimeout(npcTimeoutId); npcTimeoutId = null; }
-    const userWords = foundBy.user.length;
-    const npcWords = foundBy.npc.length;
+  if (!(foundWords.size >= totalWords && totalWords > 0)) return;
 
-    let winner;
-    if (userWords > npcWords) {
-      winner = 'User Wins!';
-    } else if (npcWords > userWords) {
-      winner = 'NPC Wins!';
-    } else {
-      winner = "It's a Draw!";
-    }
-    currentTurnEl.textContent = `Game Over! ${winner} (You: ${userWords} / NPC: ${npcWords})`;
+  resultShown = true;
+  if (npcTimeoutId) { clearTimeout(npcTimeoutId); npcTimeoutId = null; }
+
+  const userWords = foundBy.user.length;
+  const npcWords = foundBy.npc.length;
+
+  let result, winner;
+  if (userWords > npcWords) {
+    result = 'win';
+    winner = 'User Wins!';
+  } else if (npcWords > userWords) {
+    result = 'lose';
+    winner = 'NPC Wins!';
+  } else {
+    result = 'draw';
+    winner = "It's a Draw!";
   }
-}
 
+  currentTurnEl.textContent = `Game Over! ${winner} (You: ${userWords} / NPC: ${npcWords})`;
+
+  showEndOverlay({
+    lang: 'en',
+    result,
+    scoreText: `You: ${userWords} / NPC: ${npcWords}`,
+    onRestart: () => location.reload()
+  });
+}
 retryBtn.onclick = () => { startGame(npcDifficulty); };
 </script>
 
