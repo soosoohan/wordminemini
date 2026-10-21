@@ -70,6 +70,9 @@ border-radius: 12px; border: none; cursor: pointer; display: flex; align-items: 
     border-radius: 4px;
     font-weight: bold;
   }
+  .cell.npc-last {
+  background-color: #FFE94D;
+  }
   .revealed { background-color: #fff; font-size: 1.6em; }
   /* 숫자 색상 통일 */
   .revealed.num { color: #7FB3BA;}
@@ -609,6 +612,10 @@ function pickHardMove() {
   // 3순위: 랜덤
   return availableCells[Math.floor(Math.random() * availableCells.length)];
 }
+function clearNpcLast() {
+  document.querySelectorAll('.npc-last')
+    .forEach(c => c.classList.remove('npc-last'));
+}
 
 function handleClick(index, isnpcMove = false) {
   if (revealed[index] || resultShown) return;
@@ -616,6 +623,11 @@ function handleClick(index, isnpcMove = false) {
   if (currentPlayer === 'user' && isnpcMove) return;
 
   reveal(index);
+  clearNpcLast();
+  if (isnpcMove) {
+    gameEl.children[index].classList.add('npc-last');
+  }
+
   checkWords();
   checkGameEnd();
 
