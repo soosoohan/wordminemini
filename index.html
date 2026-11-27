@@ -106,13 +106,10 @@ body {
 
 .back-button:active {transform: scale(0.92);transition: transform 0.1s;}
     .language-toggle {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+        display: flex;
         background: #FFF2EB;
         padding: 8px;
         border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         z-index: 100;
     }
 
@@ -126,6 +123,7 @@ body {
         cursor: pointer;
         font-family: 'Pretendard', sans-serif;
         font-size: clamp(0.8rem, 2vw, 1rem);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
     }
 
@@ -136,6 +134,12 @@ body {
     .language-button.active {
         background: #ff69b4;
     }
+  header {
+  text-align: center;
+  margin: 0 auto 30px;
+  max-width: 800px;
+}
+
 .main-title {
     margin: 60px 0 20px;
     font-size: 0;
@@ -233,6 +237,9 @@ margin-top: 30px;
 display: none;
 }
 
+header { display: flow-root; height: auto !important; }
+.main-title { height: auto !important; }
+.main-title img { position: static !important; float: none !important; }
 
 @media (max-width: 650px) {
     body {
@@ -302,24 +309,26 @@ display: none;
         color: white;
     }
 }
-@media (max-width: 480px) {
-  .back-button { top: max(30px, env(safe-area-inset-top) + 10px); left: 10px;  width: 40px; height: 40px; }
-}
 
 </style>
 </head>
 <body onload="initLanguage()">
- <button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
- <img src="https://soosooland.com/images/home.png" alt="수수랜드 홈"></button>
+<link rel="stylesheet" href="toolbar.css">
+<div class="toolbar">
+  <button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
+  <img src="https://soosooland.com/images/home.png" alt="수수랜드 홈">
+</button>
   <div class="language-toggle">
-  <button class="language-button" onclick="toggleLanguage('ko')">한</button>
-  <button class="language-button" onclick="toggleLanguage('en')">EN</button>
+  <button class="language-button" onclick="toggleLanguage('ko')">한국어</button>
+  <button class="language-button" onclick="toggleLanguage('en')">English</button>
 </div>
-   <div class="header">
-    <h1 class="main-title">
+  </div> <!-- .toolbar -->
+<header>
+  <h1 class="main-title">
         <img src="banner2.jpeg" alt="WorpuzzMine mini 워퍼즈 마인 미니">
-    </h1></div>
-  <div class="description">
+    </h1>
+  </header>
+<div class="description">
   <div id="korean-description" class="lang-ko">
   <p style="text-align: left; padding-left: 20px;">
     • 워퍼즈 마인 미니는 지뢰찾기를 개조한 워드서치 게임입니다.<br>
